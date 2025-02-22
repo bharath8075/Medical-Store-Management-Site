@@ -27,29 +27,33 @@ function Login() {
   return (
     <div>
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="card" style={{ width: "400px" }}>
-          <h1 className="card-title d-flex justify-content-center">Login</h1>
+        <div className="card shadow-lg" style={{ width: "400px" }}>
+          <h1 className="card-title d-flex justify-content-center my-3">
+            Login
+          </h1>
           <div className="card-body">
             <div className="row">
               <div className="col">
                 <div className="form-group">
+                  <label>Email</label>
                   <input
                     className="form-control"
                     type="email"
                     name="email"
                     value={email}
-                    placeholder="Enter the Email"
+                    placeholder="example@gmail.com"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <br></br>
                 <div className="form-group">
+                  <label>Password</label>
                   <input
                     className="form-control"
                     type="password"
                     name="password"
                     value={password}
-                    placeholder="Enter the Password"
+                    placeholder="xxxx"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>

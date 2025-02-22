@@ -96,10 +96,10 @@ function MedicineDashboard() {
       <Navbar />
 
       {/* Search Section */}
-      <div className="container mb-5">
+      <div className="container mb-5 mt-4 text-center">
         <h3>Search Medicines</h3>
         <input
-          className="form-control"
+          className="form-control w-50 mx-auto"
           type="text"
           placeholder="Search by Medicine Name..."
           value={searchTerm}
@@ -107,136 +107,137 @@ function MedicineDashboard() {
         />
       </div>
 
-      <div className="row mt-4">
-        <div className="col-5">
-          <h2>Add Prodect</h2>
-
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              name="medicine"
-              placeholder="Medicine Name..."
-              value={medicine}
-              onChange={(e) => setMedicine(e.target.value)}
-            />
-            <input
-              className="form-control "
-              type="number"
-              name="stocks"
-              placeholder="Number of Stocks"
-              value={stocks}
-              onChange={(e) => setStocks(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-success" onClick={addProduct}>
-              {editId ? "Edit Medicine" : "Add Medecine"}
-            </button>
-          </div>
-        </div>
-      </div>
-
+      {/* Add Product & Table */}
       <div className="container">
-        <table className="table table-bordered table-stripped">
-          <tr>
-            <th>ID</th>
-            <th>Medicine</th>
-            <th>Available Stock</th>
-            <th>Added time</th>
-            <th>Actions</th>
-          </tr>
+        <div className="row justify-content-center">
+          {/* Add Product Section */}
+          <div className="col-12 col-lg-4 text-center">
+            <div className="form-group w-75 mx-auto">
+              <h2>Add Product</h2>
+              <input
+                className="form-control my-2"
+                type="text"
+                name="medicine"
+                placeholder="Medicine Name..."
+                value={medicine}
+                onChange={(e) => setMedicine(e.target.value)}
+              />
+              <input
+                className="form-control my-2"
+                type="number"
+                name="stocks"
+                placeholder="Number of Stocks"
+                value={stocks}
+                onChange={(e) => setStocks(e.target.value)}
+              />
+              <button className="btn btn-success w-100" onClick={addProduct}>
+                {editId ? "Edit Medicine" : "Add Medicine"}
+              </button>
+            </div>
+          </div>
 
-          {displayedMedicines.map((medicine) => (
-            <tr key={medicine.id}>
-              <td> {medicine.id}</td>
-              <td>
-                {editId === medicine.id ? (
-                  <input
-                    type="text"
-                    value={editMedicine}
-                    onChange={(e) => setEditMedicine(e.target.value)}
-                  />
-                ) : (
-                  medicine.name
-                )}
-              </td>
+          {/* Medicine Table */}
+          <div className="col-12 col-lg-8 my-2">
+            <div className="d-flex justify-content-center">
+              <table className="table table-striped w-100 text-center">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Medicine</th>
+                    <th>Available Stock</th>
+                    <th>Added Time</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {displayedMedicines.map((medicine) => (
+                    <tr key={medicine.id}>
+                      <td>{medicine.id}</td>
+                      <td>
+                        {editId === medicine.id ? (
+                          <input
+                            type="text"
+                            value={editMedicine}
+                            onChange={(e) => setEditMedicine(e.target.value)}
+                          />
+                        ) : (
+                          medicine.name
+                        )}
+                      </td>
+                      <td>
+                        {editId === medicine.id ? (
+                          <input
+                            type="number"
+                            value={editStocks}
+                            onChange={(e) =>
+                              setEditStocks(Number(e.target.value))
+                            }
+                          />
+                        ) : (
+                          medicine.stocks
+                        )}
+                      </td>
+                      <td>{medicine.addedTime}</td>
+                      <td>
+                        {editId === medicine.id ? (
+                          <>
+                            <button
+                              className="btn btn-success me-2"
+                              onClick={saveEdit}
+                            >
+                              Save
+                            </button>
+                            <button
+                              className="btn btn-danger"
+                              onClick={cancelEdit}
+                            >
+                              Cancel
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className="btn btn-primary me-2"
+                              onClick={() => editMed(medicine)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => deleteMed(medicine.id)}
+                            >
+                              Delete
+                            </button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-              <td>
-                {editId === medicine.id ? (
-                  <input
-                    type="number"
-                    value={editStocks}
-                    onChange={(e) => setEditStocks(Number(e.target.value))}
-                  />
-                ) : (
-                  medicine.stocks
-                )}
-              </td>
-
-              {/* Display addedTime here */}
-              <td>
-                {editId === medicine.id ? (
-                  <input
-                    type="text"
-                    value={medicine.addedTime} // Added time will be displayed here
-                    readOnly
-                  />
-                ) : (
-                  medicine.addedTime
-                )}
-              </td>
-
-              <td>
-                {editId === medicine.id ? (
-                  <>
-                    <button className="btn btn-primary" onClick={saveEdit}>
-                      Save
-                    </button>
-                    <button className="btn btn-danger" onClick={cancelEdit}>
-                      Cancel
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => editMed(medicine)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => deleteMed(medicine.id)}
-                    >
-                      Delete
-                    </button>
-                  </>
-                )}
-              </td>
-            </tr>
-          ))}
-        </table>
-
-        {/* Pagination Controls */}
-        <div className="d-flex justify-content-between">
-          <button
-            className="btn btn-secondary"
-            onClick={() => handlePageChange("prev")}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            className="btn btn-secondary"
-            onClick={() => handlePageChange("next")}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
+            {/* Pagination Controls */}
+            <div className="d-flex justify-content-center align-items-center mt-3">
+              <button
+                className="btn btn-secondary me-2"
+                onClick={() => handlePageChange("prev")}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <span className="fw-bold">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                className="btn btn-secondary ms-2"
+                onClick={() => handlePageChange("next")}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

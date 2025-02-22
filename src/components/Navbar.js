@@ -13,7 +13,7 @@ function Navbar() {
   return (
     <div className="navbar navbar-expand-md bg-info">
       <div className="container-fluid">
-        <h2 className="navbar-brand">PharmaciStore</h2>
+        <h2 className="navbar-brand">PharmacyStore</h2>
         <button
           class="navbar-toggler"
           type="button"
@@ -31,10 +31,10 @@ function Navbar() {
           id="navbarNav"
           style={{ float: "left" }}
         >
-          <ul className="navbar-nav mx-end">
+          <ul className="navbar-nav me-auto">
             <li className="nav-item">
               {" "}
-              <Link to={"/signup"} className="nav-link">
+              <Link to={""} className="nav-link">
                 Aboutus
               </Link>{" "}
             </li>
@@ -42,7 +42,7 @@ function Navbar() {
             <li className="nav-item">
               {" "}
               <Link
-                to={"/signup"}
+                to={"/login"}
                 onClick={() => {
                   handleLogout();
                 }}
